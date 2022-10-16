@@ -1,0 +1,73 @@
+import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'getMax' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts STRING_ARRAY operations as parameter.
+#
+class Stack:
+    def __init__(self):
+        self.__data = []
+    def push(self, item):
+        self.__data.append(item)
+    def pop(self):
+        self.__data.pop()
+    def max_el(self):
+        self.__sortedl = [i for i in self.__data]
+        self.__sortedl.sort()
+        return self.__sortedl[-1]
+    def empty(self):
+        if len(self.__data) == 0: return True
+    def show(self):
+        return self.__data
+    
+    
+
+def getMax(operations):
+    # Write your code here
+    stacks = Stack()
+    ans = []
+    for oper in operations:
+        if stacks.empty() == True:
+            pass
+        if len(oper.split(" ")) > 1:
+            if oper.split(" ")[0] == '1':
+                stacks.push(int(oper.split(" ")[1]))
+            else:
+                continue
+        else:
+            if int(oper) == 1:
+                stacks.push(dictn[oper])
+            elif int(oper) == 2:
+                stacks.pop()
+            elif int(oper) == 3:
+                if stacks.empty() == True:
+                    continue
+                else:
+                    ans.append(stacks.max_el())
+            else:
+                continue
+    return ans
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    n = int(input().strip())
+
+    ops = []
+
+    for _ in range(n):
+        ops_item = input()
+        ops.append(ops_item)
+
+    res = getMax(ops)
+
+    fptr.write('\n'.join(map(str, res)))
+    fptr.write('\n')
+
+    fptr.close()
